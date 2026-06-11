@@ -3,7 +3,7 @@
 **Contribution Number:** 1
 **Student:** Andy Pena
 **Issue:** https://github.com/cpinitiative/usaco-guide/issues/5024
-**Status:** Phase I Complete
+**Status:** Phase II Complete
 
 ---
 
@@ -47,28 +47,117 @@ The affected area is specifically the FAQ question:
 
 ### Environment Setup
 
-Local environment setup has not started yet. Phase I does not require local setup, cloning, or code changes. This will happen in Phase II.
+During Phase I, local setup was not required. For Phase I, I reviewed the GitHub issue, selected issue #5024, announced my claim in the CodePath issue-selection Slack channel, forked the USACO Guide repository, and created this public Contribution README.
 
-For Phase I, I reviewed the GitHub issue, selected the issue, announced my claim in the CodePath issue-selection Slack channel, forked the project repository, and created this public Contribution README.
+For Phase II, I set up the USACO Guide project locally on Windows using PowerShell.
+
+I cloned my fork to my D: drive because my C: drive has limited storage:
+
+D:
+cd CodePath
+git clone https://github.com/a-pena/usaco-guide.git
+cd usaco-guide
+
+I created and pushed a working branch for issue #5024:
+
+git checkout -b fix-issue-5024-usaco-faq-cf-ratings
+git push -u origin fix-issue-5024-usaco-faq-cf-ratings
+
+During setup, I found that my original Node version was too old:
+
+node v12.18.4
+
+This caused Corepack/Yarn errors because the project requires Yarn 4.9.2. To fix this, I installed fnm, installed Node 24, and activated it:
+
+winget install Schniz.fnm
+fnm install 24
+fnm use 24
+node -v
+
+After updating Node, I confirmed the active version was:
+
+v24.16.0
+
+Then I enabled Corepack and activated the Yarn version required by the project:
+
+corepack.cmd enable
+corepack.cmd prepare yarn@4.9.2 --activate
+yarn.cmd -v
+
+I confirmed Yarn was using the correct version:
+
+4.9.2
+
+Then I installed the project dependencies:
+
+yarn.cmd install
+
+The installation completed successfully with warnings:
+
+Done with warnings
+
+Finally, I started the local development server:
+
+yarn.cmd dev
+
+The project ran successfully at:
+
+http://localhost:3000
 
 ### Steps to Reproduce
 
-Since this is a documentation/content issue, reproduction means verifying the current wording in the FAQ and comparing it to the issue discussion.
+Since this is a documentation/content issue, reproduction means verifying the current wording in the FAQ and comparing it to the concern raised in issue #5024.
 
-Planned Phase II reproduction steps:
-
-1. Open the USACO Guide repository.
-2. Locate the FAQ content file that contains the Codeforces rating comparison section.
-3. Review the current Codeforces-to-USACO rating ranges.
-4. Compare the current wording to the concerns raised in issue #5024.
-5. Document whether the issue requires updated ranges, clearer wording, or both.
+Clone my fork of the USACO Guide repository:
+git clone https://github.com/a-pena/usaco-guide.git
+Enter the project folder:
+cd usaco-guide
+Check out my working branch:
+git checkout fix-issue-5024-usaco-faq-cf-ratings
+Install the project dependencies:
+yarn.cmd install
+Run the local development server:
+yarn.cmd dev
+Open the local site in a browser:
+http://localhost:3000
+Navigate to the USACO FAQs page:
+http://localhost:3000/general/usaco-faq
+Find the FAQ question:
+Q: What Codeforces rating corresponds to each of the USACO divisions?
+Confirm that the current FAQ displays these rough Codeforces-to-USACO estimates:
+Bronze: <1300 competitors / 900–1500 problems
+Silver: 1200–1500 competitors / 1200–1900 problems
+Gold: 1500–1800 competitors / 1500–2200 problems
+Platinum: 1650+ competitors / 1900+ problems
+Compare this current FAQ content with GitHub issue #5024, which suggests that the Codeforces rating comparison may need updated ranges or clearer wording.
 
 ### Reproduction Evidence
 
-* **Commit showing reproduction:** Not available yet. This will be added in Phase II if needed.
-* **Screenshots/logs:** Not applicable yet.
-* **My findings:** From reading the issue thread, I found that the main concern is whether the FAQ’s Codeforces-to-USACO rating comparison needs updated ranges, clearer wording, or both.
+Branch in my fork:
+https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
 
+GitHub issue:
+https://github.com/cpinitiative/usaco-guide/issues/5024
+
+I located the FAQ source file locally with PowerShell:
+
+Get-ChildItem -Recurse -Include *.md,*.mdx | Select-String -Pattern "What Codeforces rating corresponds"
+
+The relevant FAQ section is located in:
+
+content\1_General\USACO_FAQs.mdx
+
+The section starts around line 214 and contains the current Codeforces rating estimates for Bronze, Silver, Gold, and Platinum.
+
+I also reproduced the issue visually by running the site locally with yarn.cmd dev and opening the FAQ page in the browser at:
+
+http://localhost:3000/general/usaco-faq
+
+The page displayed the current FAQ section titled:
+
+Q: What Codeforces rating corresponds to each of the USACO divisions?
+
+My findings: the FAQ already warns that Codeforces ratings and USACO divisions cannot be directly compared, but issue #5024 raises the concern that the listed ranges may be outdated or may need clearer wording. Because the issue discussion includes some uncertainty about Bronze and Silver, the safest next step is a conservative documentation update unless a maintainer requests specific range changes.
 ---
 
 ## Solution Approach
@@ -98,43 +187,117 @@ If the maintainers respond with specific guidance, I will follow their preferred
 
 Using UMPIRE framework (adapted):
 
-**Understand:** The problem is that the FAQ’s comparison between Codeforces ratings and USACO divisions may be inaccurate or unclear. The fix should make the FAQ more helpful for students trying to understand how Codeforces difficulty roughly maps to USACO levels.
+**Understand:** During Phase I, I selected issue #5024 because it is a documentation/content issue in the USACO Guide FAQ. The issue focuses on the FAQ section that compares Codeforces ratings to USACO divisions.
+The problem is that the current FAQ comparison may be inaccurate, outdated, or unclear for students trying to understand how Codeforces difficulty roughly maps to USACO levels. The FAQ already explains that Codeforces and USACO cannot be directly compared, but issue #5024 raises the concern that the listed ranges may need updated wording or clarification.
+For Phase II, I reproduced the issue locally by running the USACO Guide site, opening the USACO FAQs page, and confirming the current Codeforces rating estimates shown in the FAQ.
 
-**Match:** I will look for similar FAQ entries in the USACO Guide repository to match the existing style, tone, formatting, and MDX structure.
+**Match:** This is a documentation update, so I will match the existing style, tone, formatting, and MDX structure used in the USACO Guide FAQ file.
+
+The relevant file is:
+
+content\1_General\USACO_FAQs.mdx
+
+The relevant section is:
+
+Q: What Codeforces rating corresponds to each of the USACO divisions?
+
+I will keep the change focused on this FAQ section instead of making unrelated edits.
 
 **Plan:**
 
-1. Locate the FAQ source file that contains the Codeforces rating comparison.
-2. Read the surrounding FAQ entries to understand tone and formatting.
-3. Draft a small documentation update that clarifies the approximate nature of the rating ranges.
-4. Decide whether to adjust specific ranges based on maintainer feedback or issue discussion.
-5. Preview or build the documentation locally if required by the contribution guide.
-6. Submit a pull request with a clear summary of the documentation change.
+My planned approach is:
 
-**Implement:** Not started yet. I will add links to my branch and commits once implementation begins in Phase II/III.
+1. Review the current FAQ wording and the surrounding FAQ entries to preserve the same style and formatting.
+2. Re-read issue #5024 and the maintainer discussion before making changes.
+3. Avoid making unsupported changes to all rating ranges without maintainer confirmation.
+4. Since the issue discussion includes uncertainty about whether Bronze and Silver are already reasonably accurate, make a conservative documentation update unless a maintainer requests specific range changes.
+5.  that Codeforces ratings and USACO divisions are only rough comparisons and should not be treated as exact equivalents.
+6. If needed, adjust only the ranges or wording that are clearly supported by the issue discussion or maintainer feedback.
+7. Run the project locally again with:
+yarn.cmd dev
+8. Check the rendered FAQ page in the browser to make sure the updated text displays correctly.
+9. Review the Git diff to confirm that the change is small, focused, and limited to the FAQ documentation.
 
-**Review:** Before submitting a pull request, I will check that the wording is clear and concise, the change stays focused on the issue, the FAQ matches the USACO Guide writing style, the MDX formatting is correct, and I did not make unsupported claims about exact rating boundaries.
+**Implement:** Implementation has not started yet because Phase II only requires reproduction and a plan.
 
-**Evaluate:** I will verify the change by checking the rendered FAQ page, either locally or through the repository’s recommended preview/build process. I will also make sure the updated text addresses the concern raised in issue #5024.
+My working branch for this issue is:
+
+https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
+
+In the next phase, I plan to edit:
+
+content\1_General\USACO_FAQs.mdx
+
+I will then commit the documentation change to my branch.
+
+**Review:** Before opening a pull request in a later phase, I will review the change to make sure:
+
+The wording is clear and helpful for students.
+The FAQ still clearly states that Codeforces and USACO are significantly different.
+The change does not present the rating ranges as exact boundaries.
+The MDX formatting is correct.
+The diff is focused only on the Codeforces rating FAQ section.
+The update follows the style of the existing USACO Guide documentation.
+
+**Evaluate:** I will evaluate the change by running the site locally and checking the rendered FAQ page in the browser.
+
+The local page I used for reproduction is:
+
+http://localhost:3000/general/usaco-faq
+
+I will confirm that the updated FAQ section renders correctly and addresses the concern raised in issue #5024.
+
+Phase II status: reproduction is complete, the relevant file and FAQ section have been identified, the local site runs successfully, and I have a focused implementation plan for the documentation update.
 
 ---
 
 ## Testing Strategy
 
+### Phase II Reproduction Checks
+
+| Status   | Reproduction Check                                                                         |
+| -------- | ------------------------------------------------------------------------------------------ |
+| Complete | Confirmed that the project can be cloned locally.                                          |
+| Complete | Created and pushed a working branch in my fork.                                            |
+| Complete | Installed the required project dependencies with Yarn.                                     |
+| Complete | Started the local development server successfully.                                         |
+| Complete | Opened the USACO Guide site locally at `http://localhost:3000`.                            |
+| Complete | Navigated to the USACO FAQs page.                                                          |
+| Complete | Confirmed that the Codeforces ratings FAQ section renders locally.                         |
+| Complete | Verified the current Bronze, Silver, Gold, and Platinum rating estimates shown in the FAQ. |
+
+
+
 ### Unit Tests
 
-* [ ] Test case 1: Confirm whether the project requires formatting or lint checks for MDX files.
-* [ ] Test case 2: Run any recommended documentation checks from the contribution guide.
-* [ ] Test case 3: Confirm that the edited FAQ file has valid Markdown/MDX formatting.
+This issue is a documentation/content issue, so traditional unit tests are not required at this stage.
+
+For the implementation phase, I will treat documentation checks as the closest equivalent to unit tests:
+
+| Status  | Planned Check                                                                                    |
+| ------- | ------------------------------------------------------------------------------------------------ |
+| Planned | Confirm that the edited FAQ file has valid Markdown/MDX formatting.                              |
+| Planned | Confirm that the change is limited to the relevant Codeforces ratings FAQ section.               |
+| Planned | Confirm that the updated wording does not make unsupported claims about exact rating boundaries. |
+
 
 ### Integration Tests
 
-* [ ] Integration scenario 1: Build or preview the documentation site if required.
-* [ ] Integration scenario 2: Confirm that the FAQ page renders without formatting errors and that internal links/anchors still work.
+For this documentation issue, integration testing means checking that the documentation site still runs and renders the edited FAQ page correctly.
+
+| Status  | Planned Check                                                    |
+| ------- | ---------------------------------------------------------------- |
+| Planned | Run the local development server after editing the FAQ.          |
+| Planned | Open the rendered FAQ page in the browser.                       |
+| Planned | Confirm that the updated FAQ section displays correctly.         |
+| Planned | Confirm that nearby FAQ sections and page navigation still work. |
+
 
 ### Manual Testing
+Manual testing will include opening the FAQ page locally, finding the Codeforces ratings FAQ section, reading the wording as a student/user, and checking that the explanation is clear, accurate, and not misleading.
 
-Manual testing will include opening the FAQ page locally or through a preview, finding the Codeforces ratings FAQ section, reading the updated wording as a student/user, checking that the explanation is clear and not misleading, and confirming that the change does not affect unrelated FAQ sections.
+I will also confirm that the change does not affect unrelated FAQ sections and that the page still renders correctly at:
+http://localhost:3000/general/usaco-faq
 
 ---
 
@@ -148,13 +311,35 @@ I selected USACO FAQ CF Ratings #5024 because it is a good first issue, focused 
 
 ### Week 2 Progress
 
-Not started yet. Phase II will focus on setting up the local development environment, locating the FAQ source file, reproducing/confirming the current documentation issue, and creating a more detailed solution plan.
+During Phase II, I set up the USACO Guide project locally on Windows using PowerShell.
 
+I cloned my fork to my D: drive, created a working branch, installed the required dependencies, and successfully ran the project locally.
+
+My working branch is:
+
+https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
+
+I found the relevant FAQ source file:
+
+content\1_General\USACO_FAQs.mdx
+
+I confirmed that the Codeforces ratings FAQ section starts around line 214 and contains the current rough estimates for Bronze, Silver, Gold, and Platinum.
+
+I also ran the site locally with:
+
+yarn.cmd dev
+
+The site loaded successfully at:
+
+http://localhost:3000
+
+I opened the USACO FAQs page locally and confirmed that the current Codeforces ratings FAQ section renders in the browser.
 ### Code Changes
 
-* **Files modified:** None yet.
-* **Key commits:** None yet.
-* **Approach decisions:** I chose a documentation/content issue to keep the first contribution focused and realistic while still contributing something useful to an open-source educational project.
+* **Files modified:** None yet in the USACO Guide source code.
+* **Key commits:** No implementation commits yet.
+*  **Branch created:**  fix-issue-5024-usaco-faq-cf-ratings
+* **Approach decisions:** I chose to keep this contribution focused on documentation/content. Because the issue discussion includes some uncertainty about whether Bronze and Silver are already reasonably accurate, I plan to make a conservative clarification unless a maintainer requests specific range changes.
 
 ---
 
@@ -163,14 +348,13 @@ Not started yet. Phase II will focus on setting up the local development environ
 **PR Link:** Not submitted yet.
 
 **PR Description:** Draft idea:
-
-This PR updates the USACO FAQ section that compares Codeforces ratings to USACO divisions. The goal is to clarify that the rating ranges are approximate and that Codeforces and USACO contests are not directly comparable because of differences in contest structure and time per problem.
+This PR updates the USACO FAQ section that compares Codeforces ratings to USACO divisions. The goal is to clarify that the rating ranges are approximate and that Codeforces and USACO contests are not directly comparable because of differences in contest structure, time per problem, and problem style.
 
 **Maintainer Feedback:**
 
 * No maintainer feedback received yet.
 
-**Status:** Not submitted yet.
+**Status:** Not submitted yet. Phase II does not require a pull request or finished implementation.
 
 ---
 
@@ -178,19 +362,33 @@ This PR updates the USACO FAQ section that compares Codeforces ratings to USACO 
 
 ### Technical Skills Gained
 
-So far, I learned how to evaluate open-source issues more carefully before choosing one. I practiced checking for assignees, linked pull requests, recent comments, maintainer activity, labels, scope, and whether an issue is realistic for a first contribution.
+During Phase I, I learned how to evaluate open-source issues more carefully before choosing one. I practiced checking for assignees, linked pull requests, recent comments, maintainer activity, labels, scope, and whether an issue is realistic for a first contribution.
 
-I also learned the difference between a forked project repository and a separate contribution README repository for tracking my CodePath progress.
+During Phase II, I learned how to set up a larger open-source project locally on Windows using PowerShell. I practiced cloning a fork, creating a Git branch, installing dependencies, running a local development server, and finding the relevant source file for a documentation issue.
+
+I also learned more about the difference between a forked project repository and a separate Contribution README repository for tracking my CodePath progress.
+
 
 ### Challenges Overcome
 
-One challenge was that several issues that looked good in the curated list were already being worked on or had recent comments from other contributors. I reviewed multiple options before choosing this issue.
+One challenge in Phase I was that several issues that looked good in the curated list were already being worked on or had recent comments from other contributors. I reviewed multiple options before choosing this issue.
 
 Another challenge was that I could not directly mark the issue as claimed in the course sheet, so I announced my claim in the CodePath issue-selection Slack channel instead.
 
+During Phase II, my original Node version was too old for the project’s required Yarn/Corepack setup. I solved this by installing fnm, installing Node 24, activating the newer Node version, enabling Corepack, and using Yarn 4.9.2.
+
+I also had to work around PowerShell script execution restrictions by using .cmd commands such as:
+
+npm.cmd -v
+corepack.cmd --version
+yarn.cmd -v
+
+
 ### What I'd Do Differently Next Time
 
-Next time, I would check the GitHub issue comments, assignees, and linked pull requests earlier before getting attached to an issue. I would also compare several issues side by side using the CodePath checklist before making a final choice.
+Next time, I would check the project’s required Node and package manager versions earlier before trying to install dependencies. I would also look at the repository’s setup requirements before beginning local reproduction so I can avoid setup issues more quickly.
+
+For issue selection, I would continue checking GitHub issue comments, assignees, and linked pull requests before getting attached to an issue. I would also compare several issues side by side using the CodePath checklist before making a final choice.
 
 ---
 
@@ -199,5 +397,14 @@ Next time, I would check the GitHub issue comments, assignees, and linked pull r
 * GitHub issue: https://github.com/cpinitiative/usaco-guide/issues/5024
 * Original repository: https://github.com/cpinitiative/usaco-guide
 * My fork: https://github.com/a-pena/usaco-guide
+* My working branch: https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
+* Local FAQ source file: content\1_General\USACO_FAQs.mdx
+* Local reproduction page: http://localhost:3000/general/usaco-faq
 * CodePath AI301 Phase I instructions
+* CodePath AI301 Phase II instructions
 * CodePath issue-selection Slack channel
+* PowerShell
+* Git
+* Node / fnm
+* Corepack
+* Yarn
