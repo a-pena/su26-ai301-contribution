@@ -1,9 +1,9 @@
 # Contribution 1: USACO FAQ CF Ratings
 
-**Contribution Number:** 1  
-**Student:** Andrea Pena  
-**Issue:** https://github.com/cpinitiative/usaco-guide/issues/5024  
-**Status:** Phase II Complete  
+**Contribution Number:** 1
+**Student:** Andrea Pena
+**Issue:** https://github.com/cpinitiative/usaco-guide/issues/5024
+**Status:** Phase III Complete
 
 ---
 
@@ -35,10 +35,10 @@ The current FAQ provides approximate Codeforces rating ranges for USACO division
 
 During Phase II reproduction, I confirmed that the current FAQ displays these rough estimates:
 
-- Bronze: `<1300` competitors / `900–1500` problems
-- Silver: `1200–1500` competitors / `1200–1900` problems
-- Gold: `1500–1800` competitors / `1500–2200` problems
-- Platinum: `1650+` competitors / `1900+` problems
+* Bronze: `<1300` competitors / `900–1500` problems
+* Silver: `1200–1500` competitors / `1200–1900` problems
+* Gold: `1500–1800` competitors / `1500–2200` problems
+* Platinum: `1650+` competitors / `1900+` problems
 
 ### Affected Components
 
@@ -256,24 +256,25 @@ The likely root cause is that the FAQ gives approximate Codeforces rating ranges
 
 Because of that difference, a problem’s Codeforces rating may not translate directly to a USACO division. The FAQ may need to better explain that these ranges are estimates rather than strict boundaries.
 
-There is also some uncertainty in the issue thread because a later maintainer comment suggests that Bronze and Silver may already be reasonably accurate. Because of this, I plan to make a conservative documentation change rather than immediately changing all ranges without guidance.
+There is also some uncertainty in the issue thread because a later maintainer comment suggests that Bronze and Silver may already be reasonably accurate. Because of this, I made a conservative documentation change rather than immediately changing all ranges without guidance.
 
 ### Proposed Solution
 
-My proposed solution is to make a small, careful update to the FAQ section about Codeforces ratings and USACO divisions.
+My proposed solution was to make a small, careful update to the FAQ section about Codeforces ratings and USACO divisions.
 
-Possible solution options include:
+The implemented solution:
 
-- Clarifying that the rating ranges are approximate estimates.
-- Explaining that USACO gives more time per problem, so direct comparison to Codeforces ratings is imperfect.
-- Updating Gold and Platinum ranges if maintainers confirm those are the main ranges that need changes.
-- Avoiding major changes to Bronze and Silver unless maintainers request them.
+* Clarifies that the rating ranges are approximate estimates.
+* Explains that Codeforces competitor ratings and Codeforces problem ratings measure different things.
+* Explains that USACO gives more time per problem, so direct comparison to Codeforces ratings is imperfect.
+* Avoids making unsupported changes to Bronze, Silver, Gold, or Platinum ranges without maintainer confirmation.
+* Preserves the existing FAQ structure and keeps the change focused on the issue.
 
-If the maintainers respond with specific guidance, I will follow their preferred scope.
+If the maintainers request more specific rating changes during review, I can update the PR in Phase IV.
 
 ### Implementation Plan
 
-For this documentation issue, my implementation plan is organized into the main steps I would follow before making and submitting the change:
+For this documentation issue, my implementation plan is organized into the main steps I followed before making and submitting the change:
 
 #### Understand
 
@@ -285,7 +286,7 @@ For Phase II, I reproduced the issue locally by running the USACO Guide site, op
 
 #### Match
 
-This is a documentation update, so I will match the existing style, tone, formatting, and MDX structure used in the USACO Guide FAQ file.
+This is a documentation update, so I matched the existing style, tone, formatting, and MDX structure used in the USACO Guide FAQ file.
 
 The relevant file is:
 
@@ -299,18 +300,24 @@ The relevant section is:
 Q: What Codeforces rating corresponds to each of the USACO divisions?
 ```
 
-I will keep the change focused on this FAQ section instead of making unrelated edits.
+I kept the change focused on this FAQ section instead of making unrelated edits.
 
 #### Plan
 
-My planned approach is:
+My planned approach was:
 
 1. Review the current FAQ wording and the surrounding FAQ entries to preserve the same style and formatting.
+
 2. Re-read issue #5024 and the maintainer discussion before making changes.
+
 3. Avoid making unsupported changes to all rating ranges without maintainer confirmation.
+
 4. Since the issue discussion includes uncertainty about whether Bronze and Silver are already reasonably accurate, make a conservative documentation update unless a maintainer requests specific range changes.
+
 5. Clarify that Codeforces ratings and USACO divisions are only rough comparisons and should not be treated as exact equivalents.
-6. If needed, adjust only the ranges or wording that are clearly supported by the issue discussion or maintainer feedback.
+
+6. Avoid changing the existing rating values until maintainers provide more specific guidance.
+
 7. Run the project locally again with:
 
    ```powershell
@@ -318,11 +325,26 @@ My planned approach is:
    ```
 
 8. Check the rendered FAQ page in the browser to make sure the updated text displays correctly.
+
 9. Review the Git diff to confirm that the change is small, focused, and limited to the FAQ documentation.
 
 #### Implement
 
-Implementation has not started yet because Phase II only requires reproduction and a plan.
+During Phase III, I implemented the documentation update in:
+
+```text
+content\1_General\USACO_FAQs.mdx
+```
+
+The change updates the FAQ question:
+
+```text
+Q: What Codeforces rating corresponds to each of the USACO divisions?
+```
+
+I clarified that the listed ranges are only rough comparisons, not exact cutoffs. I also added wording to explain that Codeforces problem ratings and Codeforces competitor ratings measure different things. In addition, I clarified that because USACO contests give more time per problem, students may be able to solve a higher-rated Codeforces-style problem in a USACO contest setting.
+
+I also changed the Bronze wording from `<1300 rated on CF` to `below 1300 rated on CF` to avoid an MDX rendering issue caused by the `<` character.
 
 My working branch for this issue is:
 
@@ -330,38 +352,37 @@ My working branch for this issue is:
 https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
 ```
 
-In the next phase, I plan to edit:
+The implementation commit is:
 
 ```text
-content\1_General\USACO_FAQs.mdx
+ca57383f - Clarify Codeforces rating comparison in USACO FAQ
 ```
-
-I will then commit the documentation change to my branch.
 
 #### Review
 
-Before opening a pull request in a later phase, I will review the change to make sure:
+Before committing the change, I reviewed the update to make sure:
 
-- The wording is clear and helpful for students.
-- The FAQ still clearly states that Codeforces and USACO are significantly different.
-- The change does not present the rating ranges as exact boundaries.
-- The MDX formatting is correct.
-- The diff is focused only on the Codeforces rating FAQ section.
-- The update follows the style of the existing USACO Guide documentation.
+* The wording is clear and helpful for students.
+* The FAQ still clearly states that Codeforces and USACO are significantly different.
+* The change does not present the rating ranges as exact boundaries.
+* The MDX formatting is correct.
+* The diff is focused only on the Codeforces rating FAQ section.
+* The update follows the style of the existing USACO Guide documentation.
+* No generated files were included in the commit.
 
 #### Evaluate
 
-I will evaluate the change by running the site locally and checking the rendered FAQ page in the browser.
+I evaluated the change by running the site locally and checking the rendered FAQ page in the browser.
 
-The local page I used for reproduction is:
+The local page I used for validation is:
 
 ```text
 http://localhost:3000/general/usaco-faq
 ```
 
-I will confirm that the updated FAQ section renders correctly and addresses the concern raised in issue #5024.
+I confirmed that the updated FAQ section rendered correctly and addressed the concern raised in issue #5024.
 
-Phase II status: reproduction is complete, the relevant file and FAQ section have been identified, the local site runs successfully, and I have a focused implementation plan for the documentation update.
+Phase III status: implementation is complete, the relevant FAQ section was updated, the site was tested locally, the change was committed, and the commit was pushed to my working branch.
 
 ---
 
@@ -369,49 +390,52 @@ Phase II status: reproduction is complete, the relevant file and FAQ section hav
 
 ### Phase II Reproduction Checks
 
-| Status | Reproduction Check |
-|---|---|
-| Complete | Confirmed that the project can be cloned locally. |
-| Complete | Created and pushed a working branch in my fork. |
-| Complete | Installed the required project dependencies with Yarn. |
-| Complete | Started the local development server successfully. |
-| Complete | Opened the USACO Guide site locally at `http://localhost:3000`. |
-| Complete | Navigated to the USACO FAQs page. |
-| Complete | Confirmed that the Codeforces ratings FAQ section renders locally. |
+| Status   | Reproduction Check                                                                         |
+| -------- | ------------------------------------------------------------------------------------------ |
+| Complete | Confirmed that the project can be cloned locally.                                          |
+| Complete | Created and pushed a working branch in my fork.                                            |
+| Complete | Installed the required project dependencies with Yarn.                                     |
+| Complete | Started the local development server successfully.                                         |
+| Complete | Opened the USACO Guide site locally at `http://localhost:3000`.                            |
+| Complete | Navigated to the USACO FAQs page.                                                          |
+| Complete | Confirmed that the Codeforces ratings FAQ section renders locally.                         |
 | Complete | Verified the current Bronze, Silver, Gold, and Platinum rating estimates shown in the FAQ. |
 
 ### Unit Tests
 
-This issue is a documentation/content issue, so traditional unit tests are not required at this stage.
+This issue is a documentation/content issue, so traditional unit tests are not required.
 
-For the implementation phase, I will treat documentation checks as the closest equivalent to unit tests:
+For this documentation change, I treated documentation checks as the closest equivalent to unit tests:
 
-| Status | Planned Check |
-|---|---|
-| Planned | Confirm that the edited FAQ file has valid Markdown/MDX formatting. |
-| Planned | Confirm that the change is limited to the relevant Codeforces ratings FAQ section. |
-| Planned | Confirm that the updated wording does not make unsupported claims about exact rating boundaries. |
+| Status   | Check                                                                                              |
+| -------- | -------------------------------------------------------------------------------------------------- |
+| Complete | Confirmed that the edited FAQ file has valid Markdown/MDX formatting.                              |
+| Complete | Confirmed that the change is limited to the relevant Codeforces ratings FAQ section.               |
+| Complete | Confirmed that the updated wording does not make unsupported claims about exact rating boundaries. |
+| Complete | Confirmed that the `<1300` wording was changed to `below 1300` to avoid an MDX parsing issue.      |
 
 ### Integration Tests
 
 For this documentation issue, integration testing means checking that the documentation site still runs and renders the edited FAQ page correctly.
 
-| Status | Planned Check |
-|---|---|
-| Planned | Run the local development server after editing the FAQ. |
-| Planned | Open the rendered FAQ page in the browser. |
-| Planned | Confirm that the updated FAQ section displays correctly. |
-| Planned | Confirm that nearby FAQ sections and page navigation still work. |
+| Status   | Check                                                              |
+| -------- | ------------------------------------------------------------------ |
+| Complete | Ran the local development server after editing the FAQ.            |
+| Complete | Opened the rendered FAQ page in the browser.                       |
+| Complete | Confirmed that the updated FAQ section displays correctly.         |
+| Complete | Confirmed that nearby FAQ sections and page navigation still work. |
 
 ### Manual Testing
 
-Manual testing will include opening the FAQ page locally, finding the Codeforces ratings FAQ section, reading the wording as a student/user, and checking that the explanation is clear, accurate, and not misleading.
+Manual testing included opening the FAQ page locally, finding the Codeforces ratings FAQ section, reading the wording as a student/user, and checking that the explanation is clear, accurate, and not misleading.
 
-I will also confirm that the change does not affect unrelated FAQ sections and that the page still renders correctly at:
+I confirmed that the change does not affect unrelated FAQ sections and that the page still renders correctly at:
 
 ```text
 http://localhost:3000/general/usaco-faq
 ```
+
+I also reviewed the final Git status and diff before committing to make sure the implementation commit included only the intended FAQ file and did not include generated local files.
 
 ---
 
@@ -457,12 +481,42 @@ http://localhost:3000
 
 I opened the USACO FAQs page locally and confirmed that the current Codeforces ratings FAQ section renders in the browser.
 
+### Week 3 Progress
+
+During Phase III, I implemented the documentation clarification for issue #5024.
+
+I edited the FAQ source file:
+
+```text
+content\1_General\USACO_FAQs.mdx
+```
+
+The update clarifies that the Codeforces-to-USACO comparison is only approximate and should not be treated as exact cutoffs. I also clarified that Codeforces problem ratings and Codeforces competitor ratings measure different things, and that USACO contests allow more time per problem than Codeforces contests.
+
+I kept the existing rating ranges instead of making broad unsupported rating changes because the issue discussion includes uncertainty about which ranges should change.
+
+I tested the change locally by running:
+
+```powershell
+yarn.cmd dev
+```
+
+Then I opened:
+
+```text
+http://localhost:3000/general/usaco-faq
+```
+
+I confirmed that the updated FAQ rendered correctly in the browser. I also reviewed the Git diff and Git status before committing to make sure only the FAQ MDX file was included.
+
 ### Code Changes
 
-- **Files modified:** None yet in the USACO Guide source code.
-- **Key commits:** No implementation commits yet.
-- **Branch created:** `fix-issue-5024-usaco-faq-cf-ratings`
-- **Approach decisions:** I chose to keep this contribution focused on documentation/content. Because the issue discussion includes some uncertainty about whether Bronze and Silver are already reasonably accurate, I plan to make a conservative clarification unless a maintainer requests specific range changes.
+* **Files modified:** `content/1_General/USACO_FAQs.mdx`
+* **Key commit:** `ca57383f - Clarify Codeforces rating comparison in USACO FAQ`
+* **Branch:** `fix-issue-5024-usaco-faq-cf-ratings`
+* **Branch link:** https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
+* **Commit link:** https://github.com/a-pena/usaco-guide/commit/ca57383f
+* **Approach decisions:** I kept this contribution focused on documentation/content. Because the issue discussion includes uncertainty about whether Bronze and Silver are already reasonably accurate, I made a conservative clarification instead of changing the rating ranges without maintainer guidance.
 
 ---
 
@@ -474,11 +528,13 @@ I opened the USACO FAQs page locally and confirmed that the current Codeforces r
 
 This PR updates the USACO FAQ section that compares Codeforces ratings to USACO divisions. The goal is to clarify that the rating ranges are approximate and that Codeforces and USACO contests are not directly comparable because of differences in contest structure, time per problem, and problem style.
 
+The PR keeps the existing rating ranges and focuses on making the explanation clearer. It also clarifies that Codeforces competitor ratings and Codeforces problem ratings are different types of ratings.
+
 **Maintainer Feedback:**
 
-- No maintainer feedback received yet.
+* No maintainer feedback received yet.
 
-**Status:** Not submitted yet. Phase II does not require a pull request or finished implementation.
+**Status:** Not submitted yet. Phase III focused on implementing, testing, committing, and pushing the documentation update. The pull request will be submitted in Phase IV.
 
 ---
 
@@ -491,6 +547,8 @@ During Phase I, I learned how to evaluate open-source issues more carefully befo
 During Phase II, I learned how to set up a larger open-source project locally on Windows using PowerShell. I practiced cloning a fork, creating a Git branch, installing dependencies, running a local development server, and finding the relevant source file for a documentation issue.
 
 I also learned more about the difference between a forked project repository and a separate Contribution README repository for tracking my CodePath progress.
+
+During Phase III, I practiced making a focused documentation change in an MDX file, testing the rendered documentation locally, reviewing a Git diff, committing only the intended file, and pushing my branch to GitHub.
 
 ### Challenges Overcome
 
@@ -508,27 +566,37 @@ corepack.cmd --version
 yarn.cmd -v
 ```
 
+During Phase III, I ran into an MDX parsing issue caused by the `<1300` text. Since MDX can treat `<` as the start of a tag, I changed the wording to `below 1300` so the page would render correctly.
+
+I also had to deal with local content caching. After editing the MDX file, the browser initially showed cached content, so I cleaned and rebuilt the local content before confirming the updated FAQ rendered correctly.
+
+Another small Git challenge was that my local Git identity was not configured, so the first commit attempt failed. I fixed this by setting my Git username and noreply GitHub email for the repository, then successfully committed and pushed the change.
+
 ### What I'd Do Differently Next Time
 
 Next time, I would check the project’s required Node and package manager versions earlier before trying to install dependencies. I would also look at the repository’s setup requirements before beginning local reproduction so I can avoid setup issues more quickly.
 
 For issue selection, I would continue checking GitHub issue comments, assignees, and linked pull requests before getting attached to an issue. I would also compare several issues side by side using the CodePath checklist before making a final choice.
 
+After Phase III, I would also be more careful with MDX-specific syntax, especially characters like `<`, because they can be interpreted differently than normal Markdown text.
+
 ---
 
 ## Resources Used
 
-- GitHub issue: https://github.com/cpinitiative/usaco-guide/issues/5024
-- Original repository: https://github.com/cpinitiative/usaco-guide
-- My fork: https://github.com/a-pena/usaco-guide
-- My working branch: https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
-- Local FAQ source file: `content\1_General\USACO_FAQs.mdx`
-- Local reproduction page: `http://localhost:3000/general/usaco-faq`
-- CodePath AI301 Phase I instructions
-- CodePath AI301 Phase II instructions
-- CodePath issue-selection Slack channel
-- PowerShell
-- Git
-- Node / fnm
-- Corepack
-- Yarn
+* GitHub issue: https://github.com/cpinitiative/usaco-guide/issues/5024
+* Original repository: https://github.com/cpinitiative/usaco-guide
+* My fork: https://github.com/a-pena/usaco-guide
+* My working branch: https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
+* Implementation commit: https://github.com/a-pena/usaco-guide/commit/ca57383f
+* Local FAQ source file: `content\1_General\USACO_FAQs.mdx`
+* Local reproduction page: `http://localhost:3000/general/usaco-faq`
+* CodePath AI301 Phase I instructions
+* CodePath AI301 Phase II instructions
+* CodePath AI301 Phase III instructions
+* CodePath issue-selection Slack channel
+* PowerShell
+* Git
+* Node / fnm
+* Corepack
+* Yarn
