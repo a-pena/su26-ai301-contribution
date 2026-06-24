@@ -3,7 +3,7 @@
 **Contribution Number:** 1
 **Student:** Andrea Pena
 **Issue:** https://github.com/cpinitiative/usaco-guide/issues/5024
-**Status:** Phase III Complete
+**Status:** Phase IV Complete
 
 ---
 
@@ -270,7 +270,7 @@ The implemented solution:
 * Avoids making unsupported changes to Bronze, Silver, Gold, or Platinum ranges without maintainer confirmation.
 * Preserves the existing FAQ structure and keeps the change focused on the issue.
 
-If the maintainers request more specific rating changes during review, I can update the PR in Phase IV.
+If the maintainers request more specific rating changes during review, I can update the pull request during the iteration process.
 
 ### Implementation Plan
 
@@ -518,23 +518,38 @@ I confirmed that the updated FAQ rendered correctly in the browser. I also revie
 * **Commit link:** https://github.com/a-pena/usaco-guide/commit/ca57383f
 * **Approach decisions:** I kept this contribution focused on documentation/content. Because the issue discussion includes uncertainty about whether Bronze and Silver are already reasonably accurate, I made a conservative clarification instead of changing the rating ranges without maintainer guidance.
 
+### Week 4 Progress
+
+During Phase IV, I opened a review-ready pull request to the official USACO Guide repository:
+
+```text
+https://github.com/cpinitiative/usaco-guide/pull/6316
+```
+
+The PR was opened from my fork branch, `a-pena:fix-issue-5024-usaco-faq-cf-ratings`, into the official repository branch, `cpinitiative:master`.
+
+The pull request is currently awaiting maintainer review. If maintainers request changes, I will update my branch, push the revisions, and re-request review.
+
 ---
 
 ## Pull Request
 
-**PR Link:** Not submitted yet.
+**PR Link:** https://github.com/cpinitiative/usaco-guide/pull/6316
 
-**PR Description:** Draft idea:
+**PR Description:**
 
-This PR updates the USACO FAQ section that compares Codeforces ratings to USACO divisions. The goal is to clarify that the rating ranges are approximate and that Codeforces and USACO contests are not directly comparable because of differences in contest structure, time per problem, and problem style.
+This PR updates the USACO FAQ section that compares Codeforces ratings to USACO divisions. The change keeps the existing rating ranges but clarifies that they are rough comparisons rather than exact cutoffs.
 
-The PR keeps the existing rating ranges and focuses on making the explanation clearer. It also clarifies that Codeforces competitor ratings and Codeforces problem ratings are different types of ratings.
+The PR also explains that Codeforces competitor ratings and Codeforces problem ratings measure different things, and that USACO contests provide more time per problem, so direct comparisons are imperfect.
 
 **Maintainer Feedback:**
 
 * No maintainer feedback received yet.
+* The pull request is awaiting maintainer review.
+* GitHub shows that at least one approving review is required before the PR can be merged.
+* Some workflows are awaiting maintainer approval, which is normal for pull requests from forks.
 
-**Status:** Not submitted yet. Phase III focused on implementing, testing, committing, and pushing the documentation update. The pull request will be submitted in Phase IV.
+**Status:** Pull request submitted and awaiting maintainer review.
 
 ---
 
@@ -549,6 +564,12 @@ During Phase II, I learned how to set up a larger open-source project locally on
 I also learned more about the difference between a forked project repository and a separate Contribution README repository for tracking my CodePath progress.
 
 During Phase III, I practiced making a focused documentation change in an MDX file, testing the rendered documentation locally, reviewing a Git diff, committing only the intended file, and pushing my branch to GitHub.
+
+During Phase IV, I learned how to prepare and submit a review-ready pull request to an upstream open-source repository. I practiced checking the base repository, base branch, compare branch, merge status, and PR description before submitting.
+
+I also learned how GitHub pull request templates work and how to write a clearer PR description that explains the purpose of the change, the issue being addressed, the testing completed, and the current status of the contribution.
+
+After submitting the PR, I learned more about the open-source review process. I saw that the repository requires maintainer review before merging and that some workflows may require approval for pull requests from forks. This helped me understand that opening a pull request is not the same as merging code, and that review requirements are a normal part of contributing to protected open-source repositories.
 
 ### Challenges Overcome
 
@@ -565,21 +586,29 @@ npm.cmd -v
 corepack.cmd --version
 yarn.cmd -v
 ```
-
 During Phase III, I ran into an MDX parsing issue caused by the `<1300` text. Since MDX can treat `<` as the start of a tag, I changed the wording to `below 1300` so the page would render correctly.
 
 I also had to deal with local content caching. After editing the MDX file, the browser initially showed cached content, so I cleaned and rebuilt the local content before confirming the updated FAQ rendered correctly.
 
 Another small Git challenge was that my local Git identity was not configured, so the first commit attempt failed. I fixed this by setting my Git username and noreply GitHub email for the repository, then successfully committed and pushed the change.
 
+During Phase IV, one challenge was making sure the pull request was opened against the correct repository and branch. Since I was working from a fork, I had to confirm that the PR was going from my branch in my fork into the official `cpinitiative/usaco-guide` repository on the `master` branch, instead of accidentally opening a pull request only inside my own fork.
+
+Another challenge was preparing a professional PR description. I needed to replace the default template text with a clear explanation of what the PR does, why the change was made, how it addresses issue #5024, and how I tested it locally. I also had to decide how to reference the issue carefully. Since my change is conservative and focused on clarification, I used wording that addresses the issue without overstating that it fully resolves every possible rating-range concern.
+
+After opening the PR, I also had to understand the GitHub status messages. The PR showed that review is required, merging is blocked, and some workflows are awaiting maintainer approval. I learned that these messages are expected for protected repositories and pull requests from forks, and they do not mean the submission was incorrect.
+
 ### What I'd Do Differently Next Time
 
-Next time, I would check the project’s required Node and package manager versions earlier before trying to install dependencies. I would also look at the repository’s setup requirements before beginning local reproduction so I can avoid setup issues more quickly.
+Next time, I would check the project’s required Node and package manager versions earlier before trying to install dependencies. I would also review the repository’s setup requirements before beginning local reproduction so I can avoid setup issues more quickly.
 
-For issue selection, I would continue checking GitHub issue comments, assignees, and linked pull requests before getting attached to an issue. I would also compare several issues side by side using the CodePath checklist before making a final choice.
+For issue selection, I would continue checking GitHub issue comments, assignees, and linked pull requests before getting attached to an issue. Comparing several issues side by side with the CodePath checklist helped me choose a realistic first contribution.
 
-After Phase III, I would also be more careful with MDX-specific syntax, especially characters like `<`, because they can be interpreted differently than normal Markdown text.
+I would also be more careful with MDX-specific syntax, especially characters like `<`, because they can be interpreted differently than normal Markdown text.
 
+For the pull request phase, I would review the repository’s pull request template and contribution guidelines earlier so I can plan my final PR description before submission. I would also keep a running list of testing evidence, branch links, commit links, and issue links throughout the project so the final README update is faster.
+
+This phase helped me become more confident about submitting a pull request after carefully checking the branch, base repository, and PR description.
 ---
 
 ## Resources Used
@@ -589,11 +618,13 @@ After Phase III, I would also be more careful with MDX-specific syntax, especial
 * My fork: https://github.com/a-pena/usaco-guide
 * My working branch: https://github.com/a-pena/usaco-guide/tree/fix-issue-5024-usaco-faq-cf-ratings
 * Implementation commit: https://github.com/a-pena/usaco-guide/commit/ca57383f
+* Pull request: https://github.com/cpinitiative/usaco-guide/pull/6316
 * Local FAQ source file: `content\1_General\USACO_FAQs.mdx`
 * Local reproduction page: `http://localhost:3000/general/usaco-faq`
 * CodePath AI301 Phase I instructions
 * CodePath AI301 Phase II instructions
 * CodePath AI301 Phase III instructions
+* CodePath AI301 Phase IV instructions
 * CodePath issue-selection Slack channel
 * PowerShell
 * Git
