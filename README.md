@@ -453,6 +453,37 @@ I confirmed that:
 * The change was limited to `content/1_General/USACO_FAQs.mdx`.
 * No generated local files were included in the implementation commit.
 
+I also ran a Git whitespace validation check on the implementation commit:
+
+```powershell
+git diff --check HEAD~1 HEAD
+```
+
+Result:
+
+```text
+Passed. The command returned no whitespace errors for the implementation commit.
+```
+
+I also reviewed the commit summary with:
+
+```powershell
+git show --stat ca57383f
+```
+
+This confirmed that the implementation commit only changed the intended FAQ file:
+
+```text
+content/1_General/USACO_FAQs.mdx
+```
+
+The commit summary showed:
+
+```text
+1 file changed, 10 insertions(+), 16 deletions(-)
+```
+
+
 ### Future Validation Instructions
 
 To validate this documentation section in the future, a reviewer can:
