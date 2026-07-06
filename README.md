@@ -385,7 +385,6 @@ I confirmed that the updated FAQ section rendered correctly and addressed the co
 Phase III status: implementation is complete, the relevant FAQ section was updated, the site was tested locally, the change was committed, and the commit was pushed to my working branch.
 
 ---
-
 ## Testing Strategy
 
 ### Phase II Reproduction Checks
@@ -401,43 +400,91 @@ Phase III status: implementation is complete, the relevant FAQ section was updat
 | Complete | Confirmed that the Codeforces ratings FAQ section renders locally.                         |
 | Complete | Verified the current Bronze, Silver, Gold, and Platinum rating estimates shown in the FAQ. |
 
-### Unit Tests
+### Phase III Testing Approach
 
-This issue is a documentation/content issue, so traditional unit tests are not required.
+This contribution was a documentation-only MDX change to the USACO Guide FAQ. It did not modify application logic, backend behavior, algorithms, UI components, data models, or user-facing interactive features.
 
-For this documentation change, I treated documentation checks as the closest equivalent to unit tests:
+Because the change only updated explanatory FAQ text, I did not add automated unit tests. For this type of non-code documentation contribution, manual documentation validation was the appropriate testing approach. The goal was to confirm that the edited FAQ page still rendered correctly, that the updated wording appeared as expected, and that the change stayed limited to the relevant documentation section.
 
-| Status   | Check                                                                                              |
-| -------- | -------------------------------------------------------------------------------------------------- |
-| Complete | Confirmed that the edited FAQ file has valid Markdown/MDX formatting.                              |
-| Complete | Confirmed that the change is limited to the relevant Codeforces ratings FAQ section.               |
-| Complete | Confirmed that the updated wording does not make unsupported claims about exact rating boundaries. |
-| Complete | Confirmed that the `<1300` wording was changed to `below 1300` to avoid an MDX parsing issue.      |
+### Manual Test Cases
 
-### Integration Tests
+| Test Case                         | Steps Performed                                                                                           | Expected Result                                                   | Result |
+| --------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | ------ |
+| Local site starts successfully    | Ran `yarn.cmd dev` from the USACO Guide project directory.                                                | The local development server starts without blocking errors.      | Passed |
+| FAQ page loads locally            | Opened `http://localhost:3000/general/usaco-faq` in the browser.                                          | The USACO FAQ page loads successfully.                            | Passed |
+| Edited FAQ section appears        | Located the FAQ question: `Q: What Codeforces rating corresponds to each of the USACO divisions?`         | The edited FAQ section is visible on the page.                    | Passed |
+| Updated clarification appears     | Checked that the FAQ says the ranges are “rough comparisons, not exact cutoffs.”                          | The new clarification appears in the rendered page.               | Passed |
+| Rating-type clarification appears | Checked that the FAQ explains that CF problem ratings and CF competitor ratings measure different things. | The new explanation appears in the rendered page.                 | Passed |
+| MDX formatting renders correctly  | Confirmed the heading displayed normally and did not show extra `##` characters.                          | The heading renders as a normal FAQ heading.                      | Passed |
+| Bullet list renders correctly     | Checked the Bronze, Silver, Gold, and Platinum bullet list.                                               | The bullet list displays correctly.                               | Passed |
+| MDX parsing issue resolved        | Replaced `<1300 rated on CF` with `below 1300 rated on CF`.                                               | The page renders without the MDX parsing issue caused by `<1300`. | Passed |
+| Nearby FAQ sections still display | Checked the next FAQ section after the edited section.                                                    | Nearby FAQ content still renders normally.                        | Passed |
+| Diff is scoped to the issue       | Reviewed the Git diff before committing.                                                                  | Only the relevant FAQ documentation file was included.            | Passed |
+| Generated files excluded          | Restored `public/usaco-divisions.json` after local generation.                                            | Generated local files were not included in the commit.            | Passed |
 
-For this documentation issue, integration testing means checking that the documentation site still runs and renders the edited FAQ page correctly.
+### Automated Testing Decision
 
-| Status   | Check                                                              |
-| -------- | ------------------------------------------------------------------ |
-| Complete | Ran the local development server after editing the FAQ.            |
-| Complete | Opened the rendered FAQ page in the browser.                       |
-| Complete | Confirmed that the updated FAQ section displays correctly.         |
-| Complete | Confirmed that nearby FAQ sections and page navigation still work. |
+No new automated unit test was added because this PR only changed documentation text in an MDX FAQ page. There was no application logic, function behavior, API behavior, or UI component behavior to unit test.
 
-### Manual Testing
+Instead, I documented the manual validation process that a future maintainer or contributor could use to confirm that the FAQ remains accurate and renders correctly. This includes checking the local FAQ page, the edited section wording, the MDX formatting, the bullet list formatting, and the Git diff scope.
 
-Manual testing included opening the FAQ page locally, finding the Codeforces ratings FAQ section, reading the wording as a student/user, and checking that the explanation is clear, accurate, and not misleading.
+### Existing Project Validation
 
-I confirmed that the change does not affect unrelated FAQ sections and that the page still renders correctly at:
+I validated the documentation change locally by running:
+
+```powershell
+yarn.cmd dev
+```
+
+Then I opened:
 
 ```text
 http://localhost:3000/general/usaco-faq
 ```
 
-I also reviewed the final Git status and diff before committing to make sure the implementation commit included only the intended FAQ file and did not include generated local files.
+I confirmed that:
 
----
+* The USACO FAQ page loaded successfully.
+* The edited Codeforces rating FAQ section displayed the updated wording.
+* The heading rendered correctly without extra Markdown characters.
+* The bullet list rendered correctly.
+* The wording did not present the rating ranges as exact cutoffs.
+* The MDX parsing issue caused by `<1300` was resolved by changing the wording to `below 1300`.
+* The change was limited to `content/1_General/USACO_FAQs.mdx`.
+* No generated local files were included in the implementation commit.
+
+### Future Validation Instructions
+
+To validate this documentation section in the future, a reviewer can:
+
+1. Run the project locally with:
+
+   ```powershell
+   yarn.cmd dev
+   ```
+
+2. Open:
+
+   ```text
+   http://localhost:3000/general/usaco-faq
+   ```
+
+3. Find the FAQ section:
+
+   ```text
+   Q: What Codeforces rating corresponds to each of the USACO divisions?
+   ```
+
+4. Confirm that the section explains that Codeforces-to-USACO ranges are rough comparisons, not exact cutoffs.
+
+5. Confirm that the section explains that Codeforces problem ratings and Codeforces competitor ratings measure different things.
+
+6. Confirm that the Bronze wording uses `below 1300 rated on CF` rather than the MDX-unsafe `<1300 rated on CF`.
+
+7. Confirm that the FAQ heading, paragraphs, and bullet list render correctly.
+
+8. Review the Git diff to confirm that the change is scoped only to the relevant documentation section.
+
 
 ## Implementation Notes
 
@@ -528,7 +575,31 @@ https://github.com/cpinitiative/usaco-guide/pull/6316
 
 The PR was opened from my fork branch, `a-pena:fix-issue-5024-usaco-faq-cf-ratings`, into the official repository branch, `cpinitiative:master`.
 
-The pull request is currently awaiting maintainer review. If maintainers request changes, I will update my branch, push the revisions, and re-request review.
+The pull request was reviewed, approved, merged, and closed by the maintainers. The PR was successfully merged into the official `cpinitiative:master` branch.
+
+---
+
+## Process & Communication Evidence
+
+### Slack Participation
+
+I participated in Slack during the contribution process and posted milestone updates for this USACO FAQ CF Ratings contribution.
+
+For Phase III, I posted a Week 3 Slack update announcing:
+
+```text
+Phase III Complete — USACO FAQ CF Ratings #5024
+```
+
+That post included my Contribution README link, working branch link, commit link, and a short summary of the implementation work completed.
+
+I have screenshot evidence of this Slack participation available for re-evaluation. The relevant evidence is labeled:
+
+```text
+Week 3 slack post — Wednesday, June 17th
+```
+
+This post shows that I announced my Phase III milestone during the Phase III period.
 
 ---
 
