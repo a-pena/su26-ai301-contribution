@@ -385,6 +385,7 @@ I confirmed that the updated FAQ section rendered correctly and addressed the co
 Phase III status: implementation is complete, the relevant FAQ section was updated, the site was tested locally, the change was committed, and the commit was pushed to my working branch.
 
 ---
+
 ## Testing Strategy
 
 ### Phase II Reproduction Checks
@@ -516,6 +517,13 @@ To validate this documentation section in the future, a reviewer can:
 
 8. Review the Git diff to confirm that the change is scoped only to the relevant documentation section.
 
+### Testing Rubric Mapping
+
+| Phase III Testing Rubric Item | How This README Addresses It |
+|---|---|
+| At least one new test exists that exercises the fix | Because this was a documentation-only MDX change, I documented the manual documentation validation test cases used for this fix instead of adding automated unit tests. These manual test cases exercise the fix by checking the rendered FAQ page, the updated wording, the heading formatting, the bullet list, the MDX parsing fix, nearby FAQ rendering, and diff scope. |
+| Existing test suite still passes or student explains why failure is unrelated | This PR did not change application logic, backend behavior, API behavior, algorithms, or UI components, so there was no directly applicable unit test suite for this FAQ text change. I validated the existing documentation page by running `yarn.cmd dev`, opening the FAQ page locally, confirming the page rendered correctly, and running `git diff --check HEAD~1 HEAD`, which returned no whitespace errors. |
+| Tests follow patterns from the project's existing test files | For this documentation-only MDX change, I followed the repository’s documentation validation pattern: edit the MDX content file, run the local documentation site, inspect the rendered page, verify Markdown/MDX formatting, confirm nearby content still displays correctly, and review the Git diff to ensure the change is scoped to the intended documentation file. |
 
 ## Implementation Notes
 
@@ -646,12 +654,12 @@ The PR also explains that Codeforces competitor ratings and Codeforces problem r
 
 **Maintainer Feedback:**
 
-* No maintainer feedback received yet.
-* The pull request is awaiting maintainer review.
-* GitHub shows that at least one approving review is required before the PR can be merged.
-* Some workflows are awaiting maintainer approval, which is normal for pull requests from forks.
+* The pull request was reviewed and approved by a maintainer.
+* The pull request was merged and closed.
+* The change was accepted into the official `cpinitiative/usaco-guide` repository.
+* GitHub shows the pull request as successfully merged into `cpinitiative:master`.
 
-**Status:** Pull request submitted and awaiting maintainer review.
+**Status:** Pull request merged and closed.
 
 ---
 
@@ -711,6 +719,7 @@ I would also be more careful with MDX-specific syntax, especially characters lik
 For the pull request phase, I would review the repository’s pull request template and contribution guidelines earlier so I can plan my final PR description before submission. I would also keep a running list of testing evidence, branch links, commit links, and issue links throughout the project so the final README update is faster.
 
 This phase helped me become more confident about submitting a pull request after carefully checking the branch, base repository, and PR description.
+
 ---
 
 ## Resources Used
