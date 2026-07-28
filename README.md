@@ -1,8 +1,11 @@
 # Contribution 1: USACO FAQ CF Ratings
 
 **Contribution Number:** 1
+
 **Student:** Andrea Pena
+
 **Issue:** https://github.com/cpinitiative/usaco-guide/issues/5024
+
 **Status:** Phase IV Complete — PR Merged
 
 ---
