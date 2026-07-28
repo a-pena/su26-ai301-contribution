@@ -3,7 +3,7 @@
 **Contribution Number:** 1
 **Student:** Andrea Pena
 **Issue:** https://github.com/cpinitiative/usaco-guide/issues/5024
-**Status:** Phase IV Complete
+**Status:** Phase IV Complete — PR Merged
 
 ---
 
@@ -270,7 +270,7 @@ The implemented solution:
 * Avoids making unsupported changes to Bronze, Silver, Gold, or Platinum ranges without maintainer confirmation.
 * Preserves the existing FAQ structure and keeps the change focused on the issue.
 
-If the maintainers request more specific rating changes during review, I can update the pull request during the iteration process.
+Since the pull request has been merged, any future numeric range changes requested by maintainers would be handled as a separate follow-up contribution or pull request.
 
 ### Implementation Plan
 
@@ -641,6 +641,19 @@ Week 3 slack post — Wednesday, June 17th
 This post shows that I announced my Phase III milestone during the Phase III period.
 
 ---
+### Engineering Judgment, Scope Decisions, and Edge Cases
+
+This contribution required a scoped implementation decision because the issue discussion did not clearly establish that all of the existing Codeforces-to-USACO rating ranges were incorrect. The discussion suggested that some ranges, especially Bronze and Silver, may still be reasonably accurate. Because of that uncertainty, I chose not to introduce new numeric cutoffs without maintainer confirmation.
+
+Instead, I focused the change on reducing confusion in the FAQ by clarifying that the Codeforces-to-USACO comparison is an approximate estimate rather than an exact division boundary. This keeps the existing information intact while making the wording less absolute and less likely to be misinterpreted by readers.
+
+I also identified an important distinction between Codeforces competitor ratings and Codeforces problem ratings. These are related but not equivalent measures, so the updated wording explains that they should not be treated as a direct one-to-one comparison. This was important because the issue discussion included examples based on Codeforces problem difficulty, while the FAQ also referenced competitor rating ranges.
+
+A small MDX-specific edge case also came up during implementation. The original text used `<1300`, but the `<` character can be interpreted as the start of an HTML/MDX tag. To avoid a possible rendering or parsing issue, I changed that wording to `below 1300`, preserving the meaning while making the Markdown/MDX safer.
+
+After the pull request was submitted, additional discussion continued on the issue about whether specific Codeforces problem ratings should be treated as upper bounds for USACO divisions. I responded in the issue thread to clarify that my PR intentionally kept the existing ranges unchanged and focused on making the comparison less absolute. This reinforced the conservative scope of the PR: clarification first, numeric range changes only if maintainers request them.
+
+---
 
 ## Pull Request
 
@@ -696,6 +709,7 @@ npm.cmd -v
 corepack.cmd --version
 yarn.cmd -v
 ```
+
 During Phase III, I ran into an MDX parsing issue caused by the `<1300` text. Since MDX can treat `<` as the start of a tag, I changed the wording to `below 1300` so the page would render correctly.
 
 I also had to deal with local content caching. After editing the MDX file, the browser initially showed cached content, so I cleaned and rebuilt the local content before confirming the updated FAQ rendered correctly.
@@ -718,7 +732,7 @@ I would also be more careful with MDX-specific syntax, especially characters lik
 
 For the pull request phase, I would review the repository’s pull request template and contribution guidelines earlier so I can plan my final PR description before submission. I would also keep a running list of testing evidence, branch links, commit links, and issue links throughout the project so the final README update is faster.
 
-This phase helped me become more confident about submitting a pull request after carefully checking the branch, base repository, and PR description.
+Phase IV helped me become more confident about submitting a pull request after carefully checking the branch, base repository, and PR description.
 
 ---
 
