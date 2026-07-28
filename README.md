@@ -644,6 +644,7 @@ Week 3 slack post — Wednesday, June 17th
 This post shows that I announced my Phase III milestone during the Phase III period.
 
 ---
+
 ### Engineering Judgment, Scope Decisions, and Edge Cases
 
 This contribution required a scoped implementation decision because the issue discussion did not clearly establish that all of the existing Codeforces-to-USACO rating ranges were incorrect. The discussion suggested that some ranges, especially Bronze and Silver, may still be reasonably accurate. Because of that uncertainty, I chose not to introduce new numeric cutoffs without maintainer confirmation.
@@ -655,6 +656,40 @@ I also identified an important distinction between Codeforces competitor ratings
 A small MDX-specific edge case also came up during implementation. The original text used `<1300`, but the `<` character can be interpreted as the start of an HTML/MDX tag. To avoid a possible rendering or parsing issue, I changed that wording to `below 1300`, preserving the meaning while making the Markdown/MDX safer.
 
 After the pull request was submitted, additional discussion continued on the issue about whether specific Codeforces problem ratings should be treated as upper bounds for USACO divisions. I responded in the issue thread to clarify that my PR intentionally kept the existing ranges unchanged and focused on making the comparison less absolute. This reinforced the conservative scope of the PR: clarification first, numeric range changes only if maintainers request them.
+
+---
+
+### Key Implementation, Testing, and Documentation Evidence Commits
+
+| Commit                 | Phase                                    | Repository                       | Description                                                                                                                                                                                                                                                                                                                                                     |
+| ---------------------- | ---------------------------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ca57383f` / `fd052a9` | Phase III                                | `a-pena/usaco-guide`             | Clarified the Codeforces rating comparison in the USACO FAQ. This implementation commit updated the FAQ wording, kept the existing rating ranges, clarified that the ranges are rough estimates rather than exact cutoffs, distinguished Codeforces problem ratings from competitor ratings, and changed `<1300` to `below 1300` to avoid an MDX parsing issue. |
+| `745a81d`              | Phase III                                | `a-pena/su26-ai301-contribution` | Updated the Contribution README for Phase III implementation, including the implementation summary, branch link, commit link, local testing notes, and code-change evidence.                                                                                                                                                                                    |
+| `dca4b57`              | Phase III / Re-evaluation Evidence       | `a-pena/su26-ai301-contribution` | Expanded the testing strategy section with a documentation-specific testing approach, manual test cases, automated testing decision, existing project validation, future validation instructions, and Slack participation evidence.                                                                                                                             |
+| `ab73ff1`              | Phase III / Re-evaluation Evidence       | `a-pena/su26-ai301-contribution` | Added additional validation evidence, including `git diff --check`, `git show --stat`, confirmation that only the intended FAQ file changed, and the implementation commit summary.                                                                                                                                                                             |
+| `ffb1d87`              | Phase IV                                 | `a-pena/su26-ai301-contribution` | Updated the README for Phase IV by adding the pull request link, Week 4 progress, PR description, maintainer-review status, and pull request reflections.                                                                                                                                                                                                       |
+| `6646358`              | Phase IV / Re-evaluation Evidence        | `a-pena/su26-ai301-contribution` | Added a Phase III testing rubric mapping and updated the pull request status after the PR was reviewed, approved, merged, and closed.                                                                                                                                                                                                                           |
+| `d534e6`               | Phase III Bonus / Re-evaluation Evidence | `a-pena/su26-ai301-contribution` | Clarified engineering judgment, scope decisions, and edge cases. This commit documented why the PR kept the existing rating ranges, why the update focused on clarification, how the MDX `<1300` edge case was handled, and how the follow-up issue discussion reinforced the conservative scope of the PR.                                                     |
+
+### Scope Decision
+
+The implementation intentionally kept the existing Codeforces-to-USACO rating ranges unchanged. The issue discussion showed uncertainty about whether some existing ranges, especially Bronze and Silver, were already reasonably accurate. Because of that uncertainty, I chose a conservative documentation update instead of introducing unsupported numeric cutoffs.
+
+The change focused on making the FAQ less absolute and less confusing for students. It clarified that the listed ranges are approximate guidance, not strict boundaries. It also explained that Codeforces problem ratings and Codeforces competitor ratings measure different things, so they should not be treated as a direct one-to-one comparison.
+
+### Commit Cadence and Documentation Cadence
+
+The implementation branch for the upstream USACO Guide pull request contains one focused implementation commit because the actual fix was a small, documentation-only MDX change to one FAQ section.
+
+However, the contribution process also included multiple meaningful README and evidence commits across the project timeline:
+
+* June 17, 2026: Phase III implementation and README update documenting the completed FAQ change.
+* June 24, 2026: Phase IV README update after opening the pull request.
+* July 6, 2026: Expanded Phase III testing explanation, manual validation evidence, and Slack participation evidence.
+* July 11, 2026: Added testing rubric mapping and updated the pull request status after merge.
+* July 28, 2026: Added engineering judgment, scope decision, MDX edge case, and follow-up discussion evidence for re-evaluation.
+
+For future contributions, I will split implementation work into smaller meaningful commits when the issue scope allows it. For this contribution, the upstream implementation itself was intentionally small and focused, while the Contribution README shows continued documentation, testing evidence, communication evidence, and reflection work across multiple commits.
 
 ---
 
